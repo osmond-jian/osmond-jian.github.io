@@ -15,24 +15,10 @@
 				emailjs.init('FxqQQtfHXrSP_97MT');
 			})();
 		</script>
-		    <script type="text/javascript">
-				window.onload = function() {
-					document.getElementById('contact-form').addEventListener('submit', function(event) {
-						event.preventDefault();
-						// generate a five digit number for the contact_number variable
-						// this.contact_number.value = Math.random() * 100000 | 0;
-						// these IDs from the previous steps
-						emailjs.sendForm('contact_service', 'contact_form', this)
-							.then(function() {
-								console.log('SUCCESS!');
-								document.getElementById('resetButton').click();
-								alert('Your message has been sent!')
-							}, function(error) {
-								console.log('FAILED...', error);
-							});
-					});
-				}
-			</script>
+		<script type="text/javascript" src="assets/js/EmailJS.js"></script>
+<!-- This is to enable reCAPTCHA widget -->
+		<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
@@ -169,7 +155,7 @@
 				<div class="container medium">
 					<header>
 						<h2>Have me make stuff for you.</h2>
-						<p>I am currently accepting new freelance clients, interesting project ideas, or other business inquiries.Contact me at osmond.jian@gmail.com, or feel free to use the form below.</p>
+						<p>I am currently accepting new freelance clients, interesting project ideas, or other business inquiries. Contact me at osmond.jian@gmail.com, or feel free to use the form below.</p>
 					</header>
 					<div class="row">
 						<div class="col-12">
@@ -189,12 +175,19 @@
 									</div>
 									<div class="col-12">
 										<ul class="actions">
+											<div class="g-recaptcha" data-sitekey="6LdSWpcnAAAAAN6Jt-YIVoMhAvaeNvFi-OYwLqWS" data-theme="dark"></div>
+											<br/>
 											<li><input type="submit" value="Send Message" /></li>
 											<li><input type="reset" value="Clear Form" class="alt" id="resetButton"/></li>
 										</ul>
 									</div>
 								</div>
 							</form>
+							<!-- <form action="?" method="POST" id="captchaForm">
+								<div class="g-recaptcha" data-sitekey="6LdSWpcnAAAAAN6Jt-YIVoMhAvaeNvFi-OYwLqWS" data-theme="dark"></div>
+								<br/>
+								<input type="submit" value="Submit">
+							</form>						   -->
 						</div>
 						<div class="col-12">
 							<hr />
