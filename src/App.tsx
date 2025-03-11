@@ -10,6 +10,7 @@ import project3Image from "../assets/project2_riot.jpg";
 import project4Image from "../assets/project_additional4_wedding.jpg";
 import project5Image from "../assets/project_additional5_tea.jpg";
 import project6Image from "../assets/project_additional6_restaurant.jpg";
+import headshot from "../assets/headshot.jpg";
 
 
 function App() {
@@ -238,7 +239,7 @@ function App() {
           <div className="flex flex-col md:flex-row items-center gap-12 max-w-4xl mx-auto mb-20">
             <div className="w-48 h-48 rounded-full overflow-hidden border-4 border-purple-500 shadow-xl shadow-purple-500/20">
               <img 
-                src="../assets/headshot.jpg"
+                src={headshot}
                 alt="Osmond Jian"
                 className="w-full h-full object-cover"
               />
