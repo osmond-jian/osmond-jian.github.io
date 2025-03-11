@@ -84,7 +84,7 @@ function App() {
     {
       title: "iEmbraceland App",
       description: "A meditation app that incorporates haptic feedback to enhance the grounding experience. Meditation sessions feel more immersive and personalized. Currently, only for iOS.",
-      image: "../assets/project1_embrace.png",
+      image: "../../assets/project1_embrace.png",
       tech: ["React Native", "Swift", "AWS Lambda"],
       github: "https://github.com/osmond-jian",
       demo: "https://embraceland-root-and-blossom.netlify.app/embraceland"
