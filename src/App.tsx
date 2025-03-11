@@ -4,6 +4,14 @@ import { sendForm } from '@emailjs/browser'
 import toast, { Toaster } from 'react-hot-toast'
 import ReCAPTCHA from 'react-google-recaptcha'
 
+import project1Image from "../assets/project1_embrace.png";
+import project2Image from "../assets/project3_aimassist.jpg";
+import project3Image from "../assets/project2_riot.jpg";
+import project4Image from "../assets/project_additional4_wedding.jpg";
+import project5Image from "../assets/project_additional5_tea.jpg";
+import project6Image from "../assets/project_additional6_restaurant.jpg";
+
+
 function App() {
   const formRef = useRef<HTMLFormElement>(null)
   const recaptchaRef = useRef<ReCAPTCHA>(null)
@@ -84,7 +92,7 @@ function App() {
     {
       title: "iEmbraceland App",
       description: "A meditation app that incorporates haptic feedback to enhance the grounding experience. Meditation sessions feel more immersive and personalized. Currently, only for iOS.",
-      image: "../assets/project1_embrace.png",
+      image: project1Image,
       tech: ["React Native", "Swift", "AWS Lambda"],
       github: "https://github.com/osmond-jian",
       demo: "https://embraceland-root-and-blossom.netlify.app/embraceland"
@@ -92,7 +100,7 @@ function App() {
     {
       title: "AIm Assist",
       description: "An AI Chatbot that uses in-game stats from game data to help Valorant team managers build the perfect team using user prompts. This app was part of the Devpost hackathon, and placed 5th.",
-      image: "../assets/project3_aimassist.jpg",
+      image: project2Image,
       tech: ["Javascript", "Python", "Claude3.5"],
       github: "https://github.com/Chowd224/AIm_Assist",
       demo: "https://devpost.com/software/aimassist"
@@ -100,7 +108,7 @@ function App() {
     {
       title: "Global Esports Ranking",
       description: "Using game data from Riot Games, this app predicts how strong and what placement League of Legends teams have. This was part of the Devpost hackathon, and placed 2nd place.",
-      image: "../assets/project2_riot.jpg",
+      image: project3Image,
       tech: ["Javascript", "Python", "R"],
       github: "https://github.com/osmond-jian/riot_esports_ranking",
       demo: "https://globalesportsranking.netlify.app/"
@@ -111,7 +119,7 @@ function App() {
     {
       title: "Wedding Page",
       description: "A sample wedding page with a gallery and a reservation form.",
-      image: "../assets/project_additional4_wedding.jpg",
+      image: project4Image,
       tech: ["HTML", "CSS", "JavaScript"],
       github: "https://github.com/osmond-jian",
       demo: "https://osmond-wedding-sample.netlify.app/"
@@ -119,7 +127,7 @@ function App() {
     {
       title: "Tea Store Page",
       description: "A sample website for a tea shop, with a reservation form and a map.",
-      image: "../assets/project_additional5_tea.jpg",
+      image: project5Image,
       tech: ["Javascript", "Bootstrap", "JQuery"],
       github: "https://github.com/osmond-jian",
       demo: "https://teahut-template.netlify.app/"
@@ -127,7 +135,7 @@ function App() {
     {
       title: "Restaurant Page",
       description: "A sample website for a restaurant, tastefully designed with a reservation form.",
-      image: "../assets/project_additional6_restaurant.jpg",
+      image: project6Image,
       tech: ["HTML", "CSS", "JavaScript"],
       github: "https://github.com/osmond-jian",
       demo: "https://brewsterbargrill.netlify.app/"
