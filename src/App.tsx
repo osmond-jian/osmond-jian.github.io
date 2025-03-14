@@ -96,7 +96,7 @@ function App() {
       image: project1Image,
       tech: ["React Native", "Swift", "AWS Lambda"],
       github: "https://github.com/osmond-jian",
-      demo: "https://embraceland-root-and-blossom.netlify.app/embraceland"
+      demo: "https://apps.apple.com/us/app/iembraceland/id6740446690"
     },
     {
       title: "AIm Assist",
