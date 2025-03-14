@@ -28,7 +28,7 @@ function App() {
       setScrollPosition(window.scrollY)
       
       // Update active section based on scroll position
-      const sections = ['about', 'portfolio', 'contact']
+      const sections = ['about', 'portfolio', 'experience','contact']
       for (const section of sections) {
         const element = document.getElementById(section)
         if (element) {
@@ -86,7 +86,13 @@ function App() {
     setActiveSection(sectionId)
     setIsMenuOpen(false)
     const element = document.getElementById(sectionId)
-    element?.scrollIntoView({ behavior: 'smooth' })
+    if (element){
+      const offset = 70;
+      const elementPosition = element.getBoundingClientRect().top + window.scrollY-offset;
+
+      window.scrollTo({top:elementPosition, behavior:'smooth'});
+    }
+    // element?.scrollIntoView({ behavior: 'smooth' })
   }
 
   const initialProjects = [
@@ -182,6 +188,7 @@ function App() {
               {[
                 { id: 'about', label: 'About', icon: User2 },
                 { id: 'portfolio', label: 'Portfolio', icon: BookOpen },
+                { id: 'experience', label: 'Experience', icon: Briefcase },
                 { id: 'contact', label: 'Contact', icon: Mail }
               ].map(({ id, label, icon: Icon }) => (
                 <button
@@ -213,6 +220,7 @@ function App() {
             {[
               { id: 'about', label: 'About', icon: User2 },
               { id: 'portfolio', label: 'Portfolio', icon: BookOpen },
+              { id: 'experience', label: 'Experience', icon: Briefcase },
               { id: 'contact', label: 'Contact', icon: Mail }
             ].map(({ id, label, icon: Icon }) => (
               <button
@@ -238,31 +246,19 @@ function App() {
           {/* Hero */}
           <div className="flex flex-col md:flex-row items-center gap-12 max-w-4xl mx-auto mb-20">
             <div className="w-48 h-48 rounded-full overflow-hidden border-4 border-purple-500 shadow-xl shadow-purple-500/20">
-              <img 
-                src={headshot}
-                alt="Osmond Jian"
-                className="w-full h-full object-cover"
-              />
+              <img src={headshot} alt="Osmond Jian" className="w-full h-full object-cover" />
             </div>
             <div>
               <h1 className="text-5xl font-bold mb-6 text-purple-300">Osmond Jian</h1>
               <p className="text-xl mb-8 text-gray-300">Software Developer at iEmbrace LLC | Graduate at University of Toronto</p>
               <div className="flex gap-4">
-                <a 
-                  href="https://github.com/osmond-jian" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center bg-purple-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-600 transition-colors"
-                >
+                <a href="https://github.com/osmond-jian" target="_blank" rel="noopener noreferrer"
+                  className="inline-flex items-center bg-purple-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-600 transition-colors">
                   <Github className="w-5 h-5 mr-2" />
                   GitHub
                 </a>
-                <a 
-                  href="https://www.linkedin.com/in/osmond-jian/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center border-2 border-purple-500 text-purple-300 px-6 py-3 rounded-lg font-semibold hover:bg-purple-500 hover:text-white transition-colors"
-                >
+                <a href="https://www.linkedin.com/in/osmond-jian/" target="_blank" rel="noopener noreferrer"
+                  className="inline-flex items-center border-2 border-purple-500 text-purple-300 px-6 py-3 rounded-lg font-semibold hover:bg-purple-500 hover:text-white transition-colors">
                   <Linkedin className="w-5 h-5 mr-2" />
                   LinkedIn
                 </a>
@@ -271,27 +267,65 @@ function App() {
           </div>
 
           {/* About Me */}
-          <div className="max-w-4xl mx-auto mb-20">
+          <div className="max-w-4xl mx-auto">
             <div className="flex items-center gap-2 mb-8">
               <User2 className="w-6 h-6 text-purple-300" />
               <h2 className="text-3xl font-bold text-white">About Me</h2>
             </div>
             <p className="text-gray-300 text-lg mb-6">
-              I'm a software developer with a passion for building impactful products. Currently, I'm working at iEmbrace LLC 
-              where I develop features that continually improve the haptics user experience on the meditation app. With a 
+              I'm a software developer with a passion for building impactful products. Currently, I'm working at iEmbrace LLC
+              where I develop features that continually improve the haptics user experience on the meditation app. With a
               strong foundation in development from years of freelance experience, I bring both theoretical knowledge
               and practical experience to solve complex problems.
             </p>
           </div>
+        </div>
+      </section>
 
-          {/* Featured Projects */}
-          <div className="max-w-6xl mx-auto">
-            <div className="flex items-center gap-2 mb-12">
-              <Code2 className="w-6 h-6 text-purple-300" />
-              <h2 className="text-3xl font-bold text-white">Featured Projects</h2>
-            </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {initialProjects.map((project) => (
+      {/* Add spacing between About and Portfolio */}
+      {/* <div className="mt-32"></div> */}
+
+      {/* Portfolio Section (Now Fully Separate) */}
+      <section id="portfolio" className="py-20 bg-gray-900">
+        <div className="container mx-auto px-6 max-w-6xl">
+          {/* Section Title */}
+          <div className="flex items-center gap-2 mb-12">
+            <Code2 className="w-6 h-6 text-purple-300" />
+            <h2 className="text-3xl font-bold text-white">Featured Projects</h2>
+          </div>
+
+          {/* Initial Featured Projects */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {initialProjects.map((project) => (
+              <div key={project.title} className="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+                <img src={project.image} alt={project.title} className="w-full h-48 object-cover" />
+                <div className="p-6">
+                  <h3 className="text-xl font-bold mb-2 text-white">{project.title}</h3>
+                  <p className="text-gray-300 mb-4">{project.description}</p>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.tech.map((tech) => (
+                      <span key={tech} className="px-3 py-1 bg-purple-900/50 text-purple-300 rounded-full text-sm">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="flex gap-4">
+                    <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-purple-300 transition-colors">
+                      <Github className="w-5 h-5" />
+                    </a>
+                    <a href={project.demo} target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-purple-300 transition-colors">
+                      <ExternalLink className="w-5 h-5" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Additional Projects (Hidden until expanded) */}
+          {showMoreProjects && (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+              {additionalProjects.map((project) => (
                 <div key={project.title} className="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
                   <img src={project.image} alt={project.title} className="w-full h-48 object-cover" />
                   <div className="p-6">
@@ -305,20 +339,10 @@ function App() {
                       ))}
                     </div>
                     <div className="flex gap-4">
-                      <a 
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-gray-300 hover:text-purple-300 transition-colors"
-                      >
+                      <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-purple-300 transition-colors">
                         <Github className="w-5 h-5" />
                       </a>
-                      <a 
-                        href={project.demo}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-gray-300 hover:text-purple-300 transition-colors"
-                      >
+                      <a href={project.demo} target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-purple-300 transition-colors">
                         <ExternalLink className="w-5 h-5" />
                       </a>
                     </div>
@@ -326,72 +350,33 @@ function App() {
                 </div>
               ))}
             </div>
-            
-            {/* Additional Projects */}
-            {showMoreProjects && (
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
-                {additionalProjects.map((project) => (
-                  <div key={project.title} className="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
-                    <img src={project.image} alt={project.title} className="w-full h-48 object-cover" />
-                    <div className="p-6">
-                      <h3 className="text-xl font-bold mb-2 text-white">{project.title}</h3>
-                      <p className="text-gray-300 mb-4">{project.description}</p>
-                      <div className="flex flex-wrap gap-2 mb-4">
-                        {project.tech.map((tech) => (
-                          <span key={tech} className="px-3 py-1 bg-purple-900/50 text-purple-300 rounded-full text-sm">
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                      <div className="flex gap-4">
-                        <a 
-                          href={project.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-gray-300 hover:text-purple-300 transition-colors"
-                        >
-                          <Github className="w-5 h-5" />
-                        </a>
-                        <a 
-                          href={project.demo}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-gray-300 hover:text-purple-300 transition-colors"
-                        >
-                          <ExternalLink className="w-5 h-5" />
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-            
-            {/* See More/Less Button */}
-            <div className="flex justify-center mt-8">
-              <button
-                onClick={() => setShowMoreProjects(!showMoreProjects)}
-                className="flex items-center gap-2 text-purple-300 hover:text-purple-200 font-semibold transition-colors"
-              >
-                {showMoreProjects ? (
-                  <>
-                    Show Less
-                    <ChevronUp className="w-5 h-5" />
-                  </>
-                ) : (
-                  <>
-                    See More
-                    <ChevronDown className="w-5 h-5" />
-                  </>
-                )}
-              </button>
-            </div>
+          )}
+
+          {/* Show More / Show Less Button */}
+          <div className="flex justify-center mt-8">
+            <button
+              onClick={() => setShowMoreProjects(!showMoreProjects)}
+              className="flex items-center gap-2 text-purple-300 hover:text-purple-200 font-semibold transition-colors"
+            >
+              {showMoreProjects ? (
+                <>
+                  Show Less
+                  <ChevronUp className="w-5 h-5" />
+                </>
+              ) : (
+                <>
+                  See More
+                  <ChevronDown className="w-5 h-5" />
+                </>
+              )}
+            </button>
           </div>
         </div>
       </section>
 
-      {/* Portfolio Section */}
-      <section id="portfolio" className="py-20 bg-gray-800">
+
+      {/* Experience Section */}
+      <section id="experience" className="py-20 bg-gray-800">
         <div className="container mx-auto px-6">
           {/* Experience */}
           <div className="max-w-6xl mx-auto mb-20">
