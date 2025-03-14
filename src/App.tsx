@@ -7,7 +7,7 @@ import ReCAPTCHA from 'react-google-recaptcha'
 import project1Image from "../assets/project1_embrace.png";
 import project2Image from "../assets/project3_aimassist.jpg";
 import project3Image from "../assets/project2_riot.jpg";
-import project4Image from "../assets/project_additional4_wedding.jpg";
+import project4Image from "../assets/project4_root_blossom.png";
 import project5Image from "../assets/project_additional5_tea.jpg";
 import project6Image from "../assets/project_additional6_restaurant.jpg";
 import headshot from "../assets/headshot.jpg";
@@ -118,12 +118,12 @@ function App() {
 
   const additionalProjects = [
     {
-      title: "Wedding Page",
-      description: "A sample wedding page with a gallery and a reservation form.",
+      title: "Root and Blossom Product Page",
+      description: "The official page for the Embrace app and the upcoming hardware device.",
       image: project4Image,
       tech: ["HTML", "CSS", "JavaScript"],
-      github: "https://github.com/osmond-jian",
-      demo: "https://osmond-wedding-sample.netlify.app/"
+      github: "https://github.com/osmond-jian/root-and-blossom",
+      demo: "https://iembraceland.com/"
     },
     {
       title: "Tea Store Page",
