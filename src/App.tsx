@@ -124,7 +124,7 @@ function App() {
 
   const additionalProjects = [
     {
-      title: "Root and Blossom Product Page",
+      title: "iEmbrace Product Page",
       description: "The official page for the Embrace app and the upcoming hardware device.",
       image: project4Image,
       tech: ["HTML", "CSS", "JavaScript"],
