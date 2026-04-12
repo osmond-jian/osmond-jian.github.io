@@ -18,7 +18,10 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    /* Test globals (describe, it, expect, vi) */
+    "types": ["vitest/globals"]
   },
   "include": ["src"]
 }

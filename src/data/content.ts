@@ -41,6 +41,9 @@ export const personalInfo = {
   github: "https://github.com/osmond-jian",
   linkedin: "https://www.linkedin.com/in/osmond-jian/",
   email: "osmond.jian@gmail.com",
+  // To update your resume: create a new GitHub release and attach the PDF named "resume.pdf".
+  // The URL below always resolves to the latest release asset — no code change needed.
+  resumeUrl: "https://github.com/osmond-jian/osmond-jian.github.io/releases/latest/download/resume.pdf",
   headshotSrc,
   headshotAlt: "Osmond Jian headshot",
 };
