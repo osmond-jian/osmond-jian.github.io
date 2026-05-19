@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
-import { User2, BookOpen, Briefcase, Mail, Menu, X } from 'lucide-react'
+import { User2, BookOpen, Briefcase, Mail, Menu, X, Sun, Moon } from 'lucide-react'
+import { useTheme } from '../context/ThemeContext'
 
 const NAV_ITEMS = [
   { id: 'about', label: 'About', icon: User2 },
@@ -13,6 +14,7 @@ export default function NavBar() {
   const [activeSection, setActiveSection] = useState('about')
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const navRef = useRef<HTMLElement>(null)
+  const { isDark, toggleTheme } = useTheme()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -58,33 +60,26 @@ export default function NavBar() {
   }
 
   return (
-    <nav ref={navRef} aria-label="Main navigation" className="fixed top-0 left-0 right-0 bg-gray-800/95 backdrop-blur-sm shadow-lg z-50">
+    <nav ref={navRef} aria-label="Main navigation" className="fixed top-0 left-0 right-0 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm shadow-lg z-50">
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-16">
-          {/* Logo — decorative, aria-hidden since the name appears as the page h1 */}
-          <div aria-hidden="true" className="text-xl font-bold text-purple-300 relative w-[200px] flex items-center h-full">
+
+          {/* Logo — O and J stay fixed; "smond " and "ian" collapse on scroll */}
+          <div aria-hidden="true" className="flex items-baseline text-xl font-bold text-purple-600 dark:text-purple-300 flex-shrink-0">
+            <span>O</span>
             <span
-              className={`absolute left-0 whitespace-nowrap transition-all duration-500 ${
-                isScrolled
-                  ? '-translate-x-full opacity-0'
-                  : 'translate-x-0 opacity-100'
-              }`}
-            >
-              Osmond Jian
-            </span>
+              className="overflow-hidden whitespace-nowrap transition-all duration-500"
+              style={{ maxWidth: isScrolled ? '0' : '6rem', opacity: isScrolled ? 0 : 1 }}
+            >{'smond '}</span>
+            <span>J</span>
             <span
-              className={`absolute left-0 transition-all duration-500 ${
-                isScrolled
-                  ? 'translate-x-0 opacity-100'
-                  : 'translate-x-full opacity-0'
-              }`}
-            >
-              OJ
-            </span>
+              className="overflow-hidden whitespace-nowrap transition-all duration-500"
+              style={{ maxWidth: isScrolled ? '0' : '3rem', opacity: isScrolled ? 0 : 1 }}
+            >ian</span>
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex gap-8">
+          <div className="hidden md:flex items-center gap-6">
             {NAV_ITEMS.map(({ id, label, icon: Icon }) => (
               <button
                 key={id}
@@ -92,29 +87,51 @@ export default function NavBar() {
                 aria-current={activeSection === id ? 'page' : undefined}
                 className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300 ${
                   activeSection === id
-                    ? 'text-purple-300 font-semibold bg-purple-500/10'
-                    : 'text-gray-300 hover:text-purple-300 hover:bg-purple-500/5'
+                    ? 'text-purple-600 dark:text-purple-300 font-semibold bg-purple-500/10'
+                    : 'text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-300 hover:bg-purple-500/5'
                 }`}
               >
                 <Icon className="w-4 h-4" aria-hidden="true" />
                 {label}
               </button>
             ))}
+            <button
+              onClick={toggleTheme}
+              aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+              className="p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-300 hover:bg-purple-500/5 transition-colors"
+            >
+              {isDark
+                ? <Sun className="w-5 h-5" aria-hidden="true" />
+                : <Moon className="w-5 h-5" aria-hidden="true" />
+              }
+            </button>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden text-gray-300 hover:text-purple-300 focus:outline-none focus:ring-2 focus:ring-purple-500 rounded-md p-1"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-expanded={isMenuOpen}
-            aria-controls="mobile-menu"
-            aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
-          >
-            {isMenuOpen
-              ? <X className="w-6 h-6" aria-hidden="true" />
-              : <Menu className="w-6 h-6" aria-hidden="true" />
-            }
-          </button>
+          {/* Mobile: theme toggle + hamburger */}
+          <div className="md:hidden flex items-center gap-2">
+            <button
+              onClick={toggleTheme}
+              aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+              className="p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-300 transition-colors"
+            >
+              {isDark
+                ? <Sun className="w-5 h-5" aria-hidden="true" />
+                : <Moon className="w-5 h-5" aria-hidden="true" />
+              }
+            </button>
+            <button
+              className="text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-300 focus:outline-none focus:ring-2 focus:ring-purple-500 rounded-md p-1"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-expanded={isMenuOpen}
+              aria-controls="mobile-menu"
+              aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            >
+              {isMenuOpen
+                ? <X className="w-6 h-6" aria-hidden="true" />
+                : <Menu className="w-6 h-6" aria-hidden="true" />
+              }
+            </button>
+          </div>
         </div>
 
         {/* Mobile Navigation */}
@@ -129,8 +146,8 @@ export default function NavBar() {
               aria-current={activeSection === id ? 'page' : undefined}
               className={`flex items-center gap-2 px-4 py-3 w-full text-left transition-colors ${
                 activeSection === id
-                  ? 'text-purple-300 font-semibold bg-purple-500/10'
-                  : 'text-gray-300 hover:text-purple-300 hover:bg-purple-500/5'
+                  ? 'text-purple-600 dark:text-purple-300 font-semibold bg-purple-500/10'
+                  : 'text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-300 hover:bg-purple-500/5'
               }`}
             >
               <Icon className="w-4 h-4" aria-hidden="true" />

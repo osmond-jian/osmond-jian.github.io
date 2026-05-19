@@ -32,7 +32,7 @@ export interface Education {
 export const personalInfo = {
   name: "Osmond Jian",
   title: "Fullstack Software Developer at KPM Power | Graduate at University of Toronto",
-  bio: "I'm a software developer with a passion for building impactful products. Currently, I'm working at KPM Power where I develop and maintain features for KPM's inventory UI, database, and testing pipelines. With a strong foundation in development from years of freelance experience, I bring both theoretical knowledge and practical experience to solve complex problems.",
+  bio: "I'm a software developer with an unconventional path: I started in health sciences and medical anthropology before discovering how much I enjoy building things with code. What I brought from that background is a human-centred lens: I think carefully about who uses the software I build and why it matters to them.\n\nToday, I work at KPM Power developing fullstack features for inventory management systems, building out data pipelines, and writing the test infrastructure that keeps everything reliable. Before that, I spent over a year at iEmbrace building a meditation app that combined React Native with custom haptic experiences, and before that, years of freelance work building websites for small businesses.\n\nWhen I'm not at work, I gravitate toward projects at the intersection of games and technology: real-time multiplayer card games, AI-powered esports tools, and chess improvement apps. I'm most energized when what I'm building is something people actually want to use.",
   github: "https://github.com/osmond-jian",
   linkedin: "https://www.linkedin.com/in/osmond-jian/",
   email: "osmond.jian@gmail.com",
