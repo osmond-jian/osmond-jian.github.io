@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { User2, BookOpen, Briefcase, Mail, Menu, X } from 'lucide-react'
 
 const NAV_ITEMS = [
@@ -9,13 +9,14 @@ const NAV_ITEMS = [
 ]
 
 export default function NavBar() {
-  const [scrollPosition, setScrollPosition] = useState(0)
+  const [isScrolled, setIsScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState('about')
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const navRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrollPosition(window.scrollY)
+      setIsScrolled(window.scrollY > 100)
 
       for (const { id } of NAV_ITEMS) {
         const element = document.getElementById(id)
@@ -29,9 +30,21 @@ export default function NavBar() {
       }
     }
 
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll, { passive: true })
   }, [])
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (navRef.current && !navRef.current.contains(e.target as Node)) {
+        setIsMenuOpen(false)
+      }
+    }
+    if (isMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside)
+    }
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [isMenuOpen])
 
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId)
@@ -45,14 +58,14 @@ export default function NavBar() {
   }
 
   return (
-    <nav aria-label="Main navigation" className="fixed top-0 left-0 right-0 bg-gray-800/95 backdrop-blur-sm shadow-lg z-50">
+    <nav ref={navRef} aria-label="Main navigation" className="fixed top-0 left-0 right-0 bg-gray-800/95 backdrop-blur-sm shadow-lg z-50">
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo — decorative, aria-hidden since the name appears as the page h1 */}
           <div aria-hidden="true" className="text-xl font-bold text-purple-300 relative w-[200px] flex items-center h-full">
             <span
               className={`absolute left-0 whitespace-nowrap transition-all duration-500 ${
-                scrollPosition > 100
+                isScrolled
                   ? '-translate-x-full opacity-0'
                   : 'translate-x-0 opacity-100'
               }`}
@@ -61,7 +74,7 @@ export default function NavBar() {
             </span>
             <span
               className={`absolute left-0 transition-all duration-500 ${
-                scrollPosition > 100
+                isScrolled
                   ? 'translate-x-0 opacity-100'
                   : 'translate-x-full opacity-0'
               }`}

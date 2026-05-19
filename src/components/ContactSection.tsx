@@ -18,6 +18,15 @@ export default function ContactSection() {
       return
     }
 
+    const formData = new FormData(formRef.current)
+    const name = (formData.get('name') as string)?.trim()
+    const email = (formData.get('email') as string)?.trim()
+    const message = (formData.get('message') as string)?.trim()
+    if (!name || !email || !message) {
+      toast.error('Please fill in all fields.')
+      return
+    }
+
     setIsSubmitting(true)
     try {
       const result = await sendForm(
@@ -35,8 +44,7 @@ export default function ContactSection() {
       } else {
         throw new Error('Failed to send message')
       }
-    } catch (error) {
-      console.error('EmailJS error:', error)
+    } catch {
       toast.error('Failed to send message. Please try again.')
     } finally {
       setIsSubmitting(false)
@@ -52,6 +60,7 @@ export default function ContactSection() {
             <p className="text-gray-300">Have a question or want to work together? Send me a message!</p>
           </div>
 
+          <div className="max-w-xl mx-auto">
           <form ref={formRef} onSubmit={handleSubmit} noValidate className="space-y-6">
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-1">
@@ -106,7 +115,6 @@ export default function ContactSection() {
             <button
               type="submit"
               disabled={isSubmitting || !captchaToken}
-              aria-disabled={isSubmitting || !captchaToken}
               className="w-full bg-purple-500 text-white py-3 px-6 rounded-lg font-semibold hover:bg-purple-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               {isSubmitting ? (
@@ -119,6 +127,7 @@ export default function ContactSection() {
               )}
             </button>
           </form>
+          </div>
         </div>
       </div>
     </section>

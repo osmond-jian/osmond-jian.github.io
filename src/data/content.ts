@@ -1,17 +1,12 @@
-import project1Image from "../../assets/project1_embrace.png";
-import project2Image from "../../assets/project3_aimassist.jpg";
-import project3Image from "../../assets/project2_riot.jpg";
-import project4Image from "../../assets/project4_root_blossom.png";
-import project5Image from "../../assets/project_additional5_tea.jpg";
-import project6Image from "../../assets/project_additional6_restaurant.jpg";
-import headshotSrc from "../../assets/headshot.jpg";
+import imgHeadshot from "../../assets/headshot.jpg";
 
 export interface Project {
   title: string;
   description: string;
-  image: string;
+  image?: string;
+  screenshot?: string;
   tech: string[];
-  github: string;
+  github?: string;
   demo: string;
 }
 
@@ -42,74 +37,70 @@ export const personalInfo = {
   linkedin: "https://www.linkedin.com/in/osmond-jian/",
   email: "osmond.jian@gmail.com",
   resumeUrl: "https://github.com/user-attachments/files/26660913/resume.pdf",
-  headshotSrc,
+  headshotSrc: imgHeadshot,
   headshotAlt: "Osmond Jian headshot",
 };
 
 export const featuredProjects: Project[] = [
   {
+    title: "ChessFlow",
+    description:
+      "A chess app built with React and Supabase, designed to give players quick, actionable feedback to accelerate their improvement. I contributed to core features as part of the early development team.",
+    tech: ["React", "Supabase"],
+    demo: "https://www.chessflow.org",
+  },
+  {
     title: "iEmbraceland App",
     description:
       "A meditation app that incorporates haptic feedback to enhance the grounding experience. Meditation sessions feel more immersive and personalized. Currently, only for iOS.",
-    image: project1Image,
     tech: ["React Native", "Swift", "AWS Lambda"],
-    github: "https://github.com/osmond-jian",
-    demo: "https://apps.apple.com/us/app/iembraceland/id6740446690",
+    demo: "https://iembraceland.com/",
   },
   {
     title: "AIm Assist",
     description:
       "An AI Chatbot that uses in-game stats from game data to help Valorant team managers build the perfect team using user prompts. This app was part of the Devpost hackathon, and placed 5th.",
-    image: project2Image,
     tech: ["Javascript", "Python", "Claude 3.5"],
     github: "https://github.com/Chowd224/AIm_Assist",
     demo: "https://devpost.com/software/aimassist",
+  },
+
+];
+
+export const additionalProjects: Project[] = [
+  {
+    title: "24",
+    description: "A browser-based take on the popular card game Math24, where the goal is to make the number 24 using four numbers and basic arithmetic. Built with vanilla HTML, CSS, and JavaScript.",
+    tech: ["HTML", "CSS", "JavaScript"],
+    github: "https://github.com/osmond-jian/24",
+    screenshot: "cardmath24.netlify.app",
+    demo: "https://two4-22f8.onrender.com/",
+  },
+  {
+    title: "Battle Liner",
+    description: "A browser-based adaptation of the strategic card game Battle Line, featuring real-time multiplayer powered by WebSockets. Two players compete to form the strongest formation across a series of flags.",
+    tech: ["Javascript", "React", "WebSockets"],
+    github: "https://github.com/osmond-jian/Battle-Liner",
+    screenshot: "https://battle-liner.netlify.app/",
+    demo: "https://battle-liner.onrender.com",
   },
   {
     title: "Global Esports Ranking",
     description:
       "Using game data from Riot Games, this app predicts how strong and what placement League of Legends teams have. This was part of the Devpost hackathon, and placed 2nd place.",
-    image: project3Image,
     tech: ["Javascript", "Python", "R"],
     github: "https://github.com/osmond-jian/riot_esports_ranking",
     demo: "https://globalesportsranking.netlify.app/",
   },
 ];
 
-export const additionalProjects: Project[] = [
-  {
-    title: "iEmbrace Product Page",
-    description: "The official page for the Embrace app and the upcoming hardware device.",
-    image: project4Image,
-    tech: ["HTML", "CSS", "JavaScript"],
-    github: "https://github.com/osmond-jian/root-and-blossom",
-    demo: "https://iembraceland.com/",
-  },
-  {
-    title: "Tea Store Page",
-    description: "A sample website for a tea shop, with a reservation form and a map.",
-    image: project5Image,
-    tech: ["Javascript", "Bootstrap", "JQuery"],
-    github: "https://github.com/osmond-jian",
-    demo: "https://teahut-template.netlify.app/",
-  },
-  {
-    title: "Restaurant Page",
-    description: "A sample website for a restaurant, tastefully designed with a reservation form.",
-    image: project6Image,
-    tech: ["HTML", "CSS", "JavaScript"],
-    github: "https://github.com/osmond-jian",
-    demo: "https://brewsterbargrill.netlify.app/",
-  },
-];
-
 export const workExperience: WorkExperience[] = [
-    {
+  {
     role: "Fullstack Software Developer",
     company: "KPM Power",
     period: "August 2025 - Present",
     bullets: [
-      "Maintain and developed KPM's inventory UI and database using ReactJS, Node, and Python",
+      "Maintained and developed KPM's inventory UI and database using ReactJS, Node, and Python",
       "Improved product quality by writing unit, integration and quality testing using Vitest, RTL, and Jest",
       "Developed data pipelines and data visualization tools for better visibility on inventory, output productivity, and defect rates",
     ],
@@ -139,11 +130,11 @@ export const workExperience: WorkExperience[] = [
 export const skillCategories: SkillCategory[] = [
   {
     label: "Frontend Development",
-    skills: ["JavaScript", "TypeScript", "React", "Svelte", "Replit", "Tailwind CSS"],
+    skills: ["JavaScript", "TypeScript", "React", "Svelte", "Vite", "Tailwind CSS"],
   },
   {
     label: "Backend Development",
-    skills: ["Node.js", "Python", "GraphQL", "LLM APIs", "SQL", "MongoDB"],
+    skills: ["Node.js", "Python", "GraphQL", "Langchain", "SQL", "MongoDB"],
   },
   {
     label: "Mobile Development",

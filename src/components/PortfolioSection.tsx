@@ -32,6 +32,7 @@ export default function PortfolioSection() {
           <button
             onClick={() => setShowMoreProjects(!showMoreProjects)}
             aria-expanded={showMoreProjects}
+            aria-label={showMoreProjects ? 'Show fewer projects' : 'See more projects'}
             className="flex items-center gap-2 text-purple-300 hover:text-purple-200 font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-purple-500 rounded-md px-2 py-1"
           >
             {showMoreProjects ? (

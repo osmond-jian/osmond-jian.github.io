@@ -3,15 +3,15 @@ import { workExperience, skillCategories, education, personalInfo } from '../dat
 
 export default function ExperienceSection() {
   return (
-    <section id="experience" className="py-20 bg-gray-800">
+    <section id="experience" className="py-20 bg-gray-800" aria-label="Experience, Skills, and Education">
       <div className="container mx-auto px-6">
 
         {/* Work Experience */}
-        <div className="max-w-6xl mx-auto mb-20">
+        <section aria-labelledby="work-experience-heading" className="max-w-6xl mx-auto mb-20">
           <div className="flex items-center justify-between mb-12 flex-wrap gap-4">
             <div className="flex items-center gap-2">
               <Briefcase className="w-6 h-6 text-purple-300" aria-hidden="true" />
-              <h2 className="text-3xl font-bold text-white">Experience</h2>
+              <h2 id="work-experience-heading" className="text-3xl font-bold text-white">Experience</h2>
             </div>
             <a
               href={personalInfo.resumeUrl}
@@ -43,13 +43,13 @@ export default function ExperienceSection() {
               </div>
             ))}
           </div>
-        </div>
+        </section>
 
         {/* Skills */}
-        <div className="max-w-6xl mx-auto mb-20">
+        <section aria-labelledby="skills-heading" className="max-w-6xl mx-auto mb-20">
           <div className="flex items-center gap-2 mb-12">
             <Cpu className="w-6 h-6 text-purple-300" aria-hidden="true" />
-            <h2 className="text-3xl font-bold text-white">Skills</h2>
+            <h2 id="skills-heading" className="text-3xl font-bold text-white">Skills</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             {skillCategories.map((category) => (
@@ -65,13 +65,13 @@ export default function ExperienceSection() {
               </div>
             ))}
           </div>
-        </div>
+        </section>
 
         {/* Education */}
-        <div className="max-w-6xl mx-auto">
+        <section aria-labelledby="education-heading" className="max-w-6xl mx-auto">
           <div className="flex items-center gap-2 mb-12">
             <GraduationCap className="w-6 h-6 text-purple-300" aria-hidden="true" />
-            <h2 className="text-3xl font-bold text-white">Education</h2>
+            <h2 id="education-heading" className="text-3xl font-bold text-white">Education</h2>
           </div>
 
           <div className="space-y-6">
@@ -88,7 +88,7 @@ export default function ExperienceSection() {
               </div>
             ))}
           </div>
-        </div>
+        </section>
 
       </div>
     </section>

@@ -12,6 +12,7 @@ export default function AboutSection() {
               src={personalInfo.headshotSrc}
               alt={personalInfo.headshotAlt}
               className="w-full h-full object-cover"
+              fetchPriority="high"
             />
           </div>
           <div>
