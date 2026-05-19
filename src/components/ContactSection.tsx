@@ -1,10 +1,9 @@
 import { useRef, useState } from 'react'
-import { Send, Copy, Check, Github, Linkedin } from 'lucide-react'
+import { Send } from 'lucide-react'
 import { sendForm } from '@emailjs/browser'
 import toast from 'react-hot-toast'
 import ReCAPTCHA from 'react-google-recaptcha'
 import { useTheme } from '../context/ThemeContext'
-import { personalInfo } from '../data/content'
 import RevealOnScroll from './RevealOnScroll'
 
 interface FieldErrors {
@@ -19,7 +18,6 @@ export default function ContactSection() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [captchaToken, setCaptchaToken] = useState<string | null>(null)
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({ name: false, email: false, message: false })
-  const [copied, setCopied] = useState(false)
   const { isDark } = useTheme()
 
   const clearError = (field: keyof FieldErrors) =>
@@ -31,12 +29,6 @@ export default function ContactSection() {
         ? 'border-red-500 focus:ring-red-500'
         : 'border-gray-300 dark:border-gray-600 focus:ring-purple-500'
     } bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:border-transparent focus:outline-none transition-colors`
-
-  const handleCopyEmail = async () => {
-    await navigator.clipboard.writeText(personalInfo.email)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
-  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -99,138 +91,88 @@ export default function ContactSection() {
             </div>
           </RevealOnScroll>
 
-          <div className="grid md:grid-cols-2 gap-12 items-start">
+          <RevealOnScroll delayMs={100}>
+            <form ref={formRef} onSubmit={handleSubmit} noValidate className="space-y-6">
 
-            <RevealOnScroll delayMs={100}>
-              <div className="space-y-8">
-                <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">
-                  Whether you have a project in mind, an opportunity to share, or just want to say hi — my inbox is always open.
-                </p>
-                <div>
-                  <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email</p>
-                  <div className="flex items-center gap-3">
-                    <span className="text-gray-900 dark:text-white font-medium">{personalInfo.email}</span>
-                    <button
-                      onClick={handleCopyEmail}
-                      aria-label={copied ? 'Email copied' : 'Copy email address'}
-                      className="p-1.5 rounded-md text-gray-500 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-300 hover:bg-purple-500/10 transition-colors"
-                    >
-                      {copied
-                        ? <Check className="w-4 h-4 text-green-500" aria-hidden="true" />
-                        : <Copy className="w-4 h-4" aria-hidden="true" />
-                      }
-                    </button>
-                  </div>
-                </div>
-                <div className="flex gap-6">
-                  <a
-                    href={personalInfo.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="View GitHub profile"
-                    className="inline-flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-300 transition-colors font-medium"
-                  >
-                    <Github className="w-5 h-5" aria-hidden="true" />
-                    GitHub
-                  </a>
-                  <a
-                    href={personalInfo.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="View LinkedIn profile"
-                    className="inline-flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-300 transition-colors font-medium"
-                  >
-                    <Linkedin className="w-5 h-5" aria-hidden="true" />
-                    LinkedIn
-                  </a>
-                </div>
+              <div>
+                <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  required
+                  autoComplete="name"
+                  onChange={() => clearError('name')}
+                  className={inputClass(fieldErrors.name)}
+                />
+                {fieldErrors.name && (
+                  <p className="mt-1 text-sm text-red-500" role="alert">Please enter your name.</p>
+                )}
               </div>
-            </RevealOnScroll>
 
-            <RevealOnScroll delayMs={200}>
-              <form ref={formRef} onSubmit={handleSubmit} noValidate className="space-y-6">
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  autoComplete="email"
+                  onChange={() => clearError('email')}
+                  className={inputClass(fieldErrors.email)}
+                />
+                {fieldErrors.email && (
+                  <p className="mt-1 text-sm text-red-500" role="alert">Please enter a valid email address.</p>
+                )}
+              </div>
 
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    required
-                    autoComplete="name"
-                    onChange={() => clearError('name')}
-                    className={inputClass(fieldErrors.name)}
-                  />
-                  {fieldErrors.name && (
-                    <p className="mt-1 text-sm text-red-500" role="alert">Please enter your name.</p>
-                  )}
-                </div>
+              <div>
+                <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  Message
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows={5}
+                  required
+                  onChange={() => clearError('message')}
+                  className={inputClass(fieldErrors.message)}
+                />
+                {fieldErrors.message && (
+                  <p className="mt-1 text-sm text-red-500" role="alert">Please enter a message.</p>
+                )}
+              </div>
 
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    required
-                    autoComplete="email"
-                    onChange={() => clearError('email')}
-                    className={inputClass(fieldErrors.email)}
-                  />
-                  {fieldErrors.email && (
-                    <p className="mt-1 text-sm text-red-500" role="alert">Please enter a valid email address.</p>
-                  )}
-                </div>
+              <div className="flex justify-center mb-6">
+                <ReCAPTCHA
+                  ref={recaptchaRef}
+                  sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+                  onChange={(token) => setCaptchaToken(token)}
+                  theme={isDark ? 'dark' : 'light'}
+                />
+              </div>
 
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    rows={5}
-                    required
-                    onChange={() => clearError('message')}
-                    className={inputClass(fieldErrors.message)}
-                  />
-                  {fieldErrors.message && (
-                    <p className="mt-1 text-sm text-red-500" role="alert">Please enter a message.</p>
-                  )}
-                </div>
+              <button
+                type="submit"
+                disabled={isSubmitting || !captchaToken}
+                className="w-full bg-purple-500 text-white py-3 px-6 rounded-lg font-semibold hover:bg-purple-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              >
+                {isSubmitting ? (
+                  'Sending...'
+                ) : (
+                  <>
+                    <Send className="w-5 h-5" aria-hidden="true" />
+                    Send Message
+                  </>
+                )}
+              </button>
 
-                <div className="flex justify-center mb-6">
-                  <ReCAPTCHA
-                    ref={recaptchaRef}
-                    sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
-                    onChange={(token) => setCaptchaToken(token)}
-                    theme={isDark ? 'dark' : 'light'}
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={isSubmitting || !captchaToken}
-                  className="w-full bg-purple-500 text-white py-3 px-6 rounded-lg font-semibold hover:bg-purple-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-                >
-                  {isSubmitting ? (
-                    'Sending...'
-                  ) : (
-                    <>
-                      <Send className="w-5 h-5" aria-hidden="true" />
-                      Send Message
-                    </>
-                  )}
-                </button>
-
-              </form>
-            </RevealOnScroll>
-
-          </div>
+            </form>
+          </RevealOnScroll>
 
         </div>
       </div>
